@@ -13,7 +13,7 @@ let posts = [
   { content: 'Вернуть сотку', id: 1, created: Date.now() },
   { content: 'Погладить котика', id: 2, created: Date.now() },
   { content: 'Купить витамины геккону', id: 3, created: Date.now() },
-  { content: 'Пропылесосить коврик', id: 3, created: Date.now() },
+  { content: 'Пропылесосить коврик', id: 4, created: Date.now() },
 ];
 let nextId = posts[posts.length - 1].id + 1;
 
