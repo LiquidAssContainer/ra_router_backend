@@ -9,8 +9,13 @@ const app = new Koa();
 app.use(cors());
 app.use(koaBody({ json: true }));
 
-let posts = [];
-let nextId = 1;
+let posts = [
+  { content: 'Вернуть сотку', id: 1, created: Date.now() },
+  { content: 'Погладить котика', id: 2, created: Date.now() },
+  { content: 'Купить витамины геккону', id: 3, created: Date.now() },
+  { content: 'Пропылесосить коврик', id: 3, created: Date.now() },
+];
+let nextId = posts[posts.length - 1].id + 1;
 
 const router = new Router();
 
@@ -19,7 +24,7 @@ router.get('/posts', async (ctx, next) => {
 });
 
 router.post('/posts', async (ctx, next) => {
-  const { id, content } = ctx.request.body;
+  const { id, content } = JSON.parse(ctx.request.body);
 
   if (id !== 0) {
     posts = posts.map((o) => (o.id !== id ? o : { ...o, content: content }));
@@ -27,7 +32,7 @@ router.post('/posts', async (ctx, next) => {
     return;
   }
 
-  posts.push({ ...ctx.request.body, id: nextId++, created: Date.now() });
+  posts.push({ content, id: nextId++, created: Date.now() });
   ctx.response.status = 204;
 });
 
